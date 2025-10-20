@@ -2,89 +2,98 @@
 
 A Transformer-based Urdu Conversational Chatbot built completely from scratch using PyTorch, trained on an Urdu dialogue dataset and deployed with a Streamlit web interface for real-time interaction.
 
-This project demonstrates an end-to-end Natural Language Processing (NLP) pipeline — from text normalization and tokenization, to training, evaluation, and web deployment — optimized for Urdu text generation.
+This project demonstrates an end-to-end NLP pipeline — including data preprocessing, tokenization, model training, evaluation, and deployment — customized for Urdu.
 
 🧠 Project Overview
 
-The goal of this project is to design and implement a sequence-to-sequence Transformer capable of understanding and generating coherent Urdu sentences without relying on pre-trained language models.
+The aim of this project is to design and implement a Transformer Encoder–Decoder architecture that can understand and generate Urdu text without relying on pre-trained models.
 
-It uses:
+It integrates:
 
-Encoder-Decoder Transformer architecture
+Multi-Head Attention for contextual understanding
 
-Multi-Head Attention for contextual representation
+Positional Encoding for word order retention
 
-SentencePiece Tokenization for subword-level Urdu handling
+SentencePiece Tokenization for subword-level Urdu text
 
-Beam Search & Greedy decoding
-
-Streamlit Interface for live Urdu conversation
+Streamlit UI for real-time Urdu chatbot interaction
 
 🚀 Key Features
 
-✅ Built from scratch using PyTorch
-✅ Handles Urdu text (right-to-left) using Unicode
-✅ Custom SentencePiece tokenizer (urdu_tokenizer.model)
-✅ Real-time chat via Streamlit Web App
-✅ Multiple decoding options (Beam Search / Greedy)
-✅ Automatic masking & positional encoding
-✅ Modular Transformer implementation (Encoder + Decoder)
-✅ Supports state_dict checkpoint loading (urdu_chatbot.pt)
+Transformer Encoder–Decoder model from scratch
 
-🏗️ Architecture Summary
+Multi-Head Attention mechanism
+
+SentencePiece-based Urdu tokenizer
+
+Streamlit app for real-time interaction
+
+Beam Search & Greedy decoding support
+
+Right-to-Left Urdu rendering
+
+Modular PyTorch implementation
+
+🏗️ Architecture Details
 Component	Description
-Embedding Dim	128
+Embedding Dimension	128
 Encoder Layers	2
 Decoder Layers	2
 Attention Heads	4
-Feed-Forward Dim	512
+Feed-Forward Dimension	512
 Dropout	0.2
 BOS / EOS IDs	2 / 3
 Optimizer	Adam (lr = 1e-4)
-Loss Function	Cross Entropy
+Loss Function	Cross-Entropy Loss
 📂 Repository Structure
 Urdu-Chatbot-Transformer/
 │
-├── app.py                   # Streamlit chatbot app (inference)
-├── urdu_chatbot.pt          # Trained model checkpoint (state_dict)
+├── app.py                   # Streamlit chatbot interface
+├── urdu_chatbot.pt          # Trained Transformer model
 ├── urdu_tokenizer.model     # SentencePiece tokenizer
-├── normalized_sentences.csv # Urdu conversational dataset
-├── nlpass2.ipynb            # Model training notebook
+├── normalized_sentences.csv # Urdu dataset
+├── nlpass2.ipynb            # Training notebook
 └── README.md                # Project documentation
 
 🧰 Requirements
 
-Install required packages before running:
+Install all dependencies:
 
 pip install torch streamlit sentencepiece sacrebleu rouge-score
 
+▶️ How to Run
 
-(Optionally, you can create a requirements.txt with the same list.)
+Activate your virtual environment:
 
-▶️ Running the Chatbot Locally
-
-Activate your virtual environment
-
-.venv\Scripts\activate       # Windows
+.venv\Scripts\activate      # Windows
 # or
-source .venv/bin/activate    # macOS/Linux
+source .venv/bin/activate   # macOS/Linux
 
 
-Run the app
+Run the Streamlit app:
 
 streamlit run app.py
 
 
-Open the local URL shown in the terminal:
-👉 http://localhost:8501
+Open the local URL (e.g. http://localhost:8501) in your browser.
 
-Enter Urdu text such as:
-
+💬 Example Urdu Prompts
 السلام علیکم! کیا حال ہے؟
 آج موسم کیسا ہے؟
 تمہیں کس نے بنایا؟
+کیا تم اردو سمجھ سکتے ہو؟
 
-💬 Sample Interaction
+🧪 Training Configuration
+Parameter	Value
+Dataset	Urdu Conversational Dataset (20 K pairs)
+Tokenizer	SentencePiece (vocab = 16000)
+Split	Train 80%, Val 10%, Test 10%
+Epochs	10
+Batch Size	32
+Learning Rate	1e-4
+Loss Function	Cross-Entropy
+Metrics	BLEU, ROUGE-L, chrF, Perplexity
+🧩 Example Output
 
 User:
 
@@ -96,90 +105,46 @@ Chatbot:
 وعلیکم السلام! میں ٹھیک ہوں، آپ کیسے ہیں؟
 
 
-(Responses may vary depending on model training.)
+(Responses may vary depending on training; current checkpoint produces syntactically valid Urdu but still needs semantic fine-tuning.)
 
-🧪 Training Details (from nlpass2.ipynb)
+🌐 Deployment on Streamlit Cloud
 
-Dataset: 20,000 Urdu sentence pairs (normalized + cleaned)
-
-Tokenizer: SentencePiece (vocab_size=16000)
-
-Split: Train 80%, Val 10%, Test 10%
-
-Epochs: 10 (extendable to 25+)
-
-Batch Size: 32
-
-Learning Rate: 1e-4
-
-Loss: Cross Entropy
-
-Metrics: BLEU, ROUGE-L, chrF, Perplexity
-
-The model captures Urdu linguistic structure successfully but requires longer training for fluent and contextually accurate replies.
-
-🌐 Streamlit UI Features
-
-Right-to-Left Urdu input box
-
-Display of conversation history
-
-Sidebar configuration:
-
-Checkpoint path (urdu_chatbot.pt)
-
-Tokenizer path (urdu_tokenizer.model)
-
-Decoding mode (Greedy / Beam Search)
-
-Adjustable beam size & max token length
-
-Real-time generation feedback with spinners
-
-Clean conversational layout
-
-🧭 How to Deploy on Streamlit Cloud
-
-Push all project files to GitHub
+Push all files to GitHub:
 👉 https://github.com/Usman-Ifty/Urdu-Chatbot-Transformer
 
-Go to https://share.streamlit.io
+Visit https://share.streamlit.io
 
 Connect your GitHub account
 
-Select repository: Usman-Ifty/Urdu-Chatbot-Transformer
+Select this repo → choose app.py → click Deploy
 
-Entry file: app.py
-
-Click Deploy
-
-You’ll receive a live link such as:
+Your app will appear at a public URL like:
 https://usman-ifty-urdu-chatbot-transformer.streamlit.app
 
 ⚙️ Troubleshooting
 Issue	Cause	Fix
-Random Urdu words	Undertrained model (10 epochs)	Retrain for ≥ 25 epochs
-Streamlit shows “state_dict mismatch”	FeedForward layer renamed	Use w1/w2 instead of linear1/linear2
-Tokenizer loads but output gibberish	Wrong .model file	Use the exact same tokenizer from training
-Long unreadable output	Missing EOS ID	Ensure BOS=2, EOS=3
+Random Urdu words	Under-trained model	Retrain for ≥ 25 epochs
+“state_dict mismatch”	Layer name changes	Align linear1/linear2 with w1/w2
+Garbled text	Wrong tokenizer	Use exact .model used in training
+Endless output	Wrong EOS ID	Ensure BOS = 2 and EOS = 3
 📈 Future Work
 
-Fine-tune model for 25+ epochs
+Continue training for 25+ epochs
 
-Add more Urdu conversational data
+Add larger and cleaner Urdu datasets
 
-Visualize attention heatmaps
+Visualize attention weights
 
-Implement top-k / nucleus sampling decoding
+Introduce temperature / top-k sampling
 
-Improve contextual memory across turns
+Add conversation memory
 
-Deploy fully on Streamlit Cloud with persistent chat history
+Deploy fully on Streamlit Cloud
 
-🧑‍💻 Author
+👤 Author
 
 Muhammad Usman Awan
-FAST-NUCES, Chiniot-Faisalabad Campus
+FAST-NUCES | Chiniot-Faisalabad Campus
 BSCS – Semester 7
 GitHub: Usman-Ifty
 
